@@ -15,11 +15,11 @@ handleLog(){
         password="${BASH_REMATCH[2]}"
         if [ "$username" != "$username_old" ]
         then
-            ifdown netkeeper
-            uci set network.netkeeper.username="$username"
-            uci set network.netkeeper.password="$password"
+            ifdown wan
+            uci set network.wan.username="$username"
+            uci set network.wan.password="$password"
             uci commit
-            ifup netkeeper
+            ifup wan
             username_old="$username"
             logger -t nk4 "new username $username"
         fi

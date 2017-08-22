@@ -7,5 +7,5 @@ start()
 
 {
     (sh /root/nk4.sh &)
-    logger -t nk4 "netkeeper listen start"
+    logger -t nk4 "wan listen start"
 }

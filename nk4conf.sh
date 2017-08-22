@@ -19,18 +19,18 @@ cp /usr/lib/pppd/2.4.7/rp-pppoe.so /etc/ppp/plugins/rp-pppoe.so
 uci delete network.wan6
 uci commit network
 
-uci set network.netkeeper=interface
-uci set network.netkeeper.ifname=$(uci show network.wan.ifname | awk -F "'" '{print $2}')
-uci set network.netkeeper.macaddr=aabbccddeeff
-uci set network.netkeeper.proto=pppoe
-uci set network.netkeeper.username=username
-uci set network.netkeeper.password=password
-uci set network.netkeeper.metric='0'
-uci set network.netkeeper.auto='0'
+uci set network.wan=interface
+uci set network.wan.ifname=$(uci show network.wan.ifname | awk -F "'" '{print $2}')
+uci set network.wan.macaddr=aabbccddeeff
+uci set network.wan.proto=pppoe
+uci set network.wan.username=username
+uci set network.wan.password=password
+uci set network.wan.metric='0'
+uci set network.wan.auto='0'
 uci commit network
 
 #set firewall
-uci set firewall.@zone[1].network='wan netkeeper' 
+uci set firewall.@zone[1].network='wan wan'
 uci commit firewall
 /etc/init.d/firewall restart
 /etc/init.d/network reload
