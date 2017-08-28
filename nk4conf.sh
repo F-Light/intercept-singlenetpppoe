@@ -20,7 +20,7 @@ uci delete network.wan6
 uci commit network
 
 uci set network.wan=interface
-uci set network.wan.ifname=$(uci show network.wan.ifname | awk -F "'" '{print $2}')
+uci set network.wan.ifname=$(uci get network.wan.ifname)
 uci set network.wan.macaddr=aabbccddeeff
 uci set network.wan.proto=pppoe
 uci set network.wan.username=username
@@ -30,7 +30,7 @@ uci set network.wan.auto='0'
 uci commit network
 
 #set firewall
-uci set firewall.@zone[1].network='wan wan'
+uci set firewall.@zone[1].network='wan wan' 
 uci commit firewall
 /etc/init.d/firewall restart
 /etc/init.d/network reload

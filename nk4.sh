@@ -7,24 +7,35 @@ then
 fi
 pppoe-server -k -I br-lan
 
-regexp="rcvd \[PAP AuthReq id=0xf user=\"(.*)\" password=\"(.*)\"\]"
-handleLog(){
-  while read data; do
-    if [[ $data =~ $regexp ]];then
-        username="${BASH_REMATCH[1]}"
-        password="${BASH_REMATCH[2]}"
-        if [ "$username" != "$username_old" ]
-        then
-            ifdown wan
-            uci set network.wan.username="$username"
-            uci set network.wan.password="$password"
-            uci commit
-            ifup wan
-            username_old="$username"
-            logger -t nk4 "new username $username"
-        fi
-    fi
-  done
-}
+#clear logs
+cat /dev/null > /tmp/pppoe.log
 
-tail -f -n 1 /tmp/pppoe.log  | handleLog
+while :
+do
+    #read the last username in pppoe.log
+    userinfo=$(grep 'user=' /tmp/pppoe.log | grep 'rcvd' | tail -n 1)
+    name=${userinfo#*'"'}
+    username=${name%'" password="'*}
+    word=${userinfo#*'" password="'}
+    password=${word%'"]'}
+
+    if [ "$username" != "$username_old" ]
+    then
+        ifdown wan
+        uci set network.wan.username="$username"
+        uci set network.wan.password="$password"
+        uci commit
+        ifup wan
+        username_old="$username"
+        logger -t nk4 "new username $username"
+    fi
+    
+    sleep 10
+
+    #close pppoe if log fail
+    if [ -z "$(ifconfig | grep "wan")" ]
+    then
+        ifdown wan
+    fi
+
+done
