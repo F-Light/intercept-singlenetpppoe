@@ -1,4 +1,4 @@
-# intercept-to-singlenetpppoe
+# intercept-singlenetpppoe
 #### 用于openwrt pppoe-server的闪讯拦截拨号脚本
 
 #### 感谢项目[Openwrt-NetKeeper](https://github.com/miao1007/Openwrt-NetKeeper)
