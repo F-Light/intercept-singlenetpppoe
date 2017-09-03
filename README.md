@@ -9,6 +9,8 @@
 
 修改该脚本，更适用于原生openwrt。
 
+![](http://www.lbysg.com/20170903112159.png)
+
 本人所在的学校原来使用的是锐捷 而后更换闪讯，锐捷时代同样使用类似思路（实际上很不同）。 原项目[mentohust-v4-proxy](https://github.com/updateing/mentohust-v4-proxy)
 
 送给大家一个我交叉编译好的二进制文件[mentohust-proxy_mtk](https://github.com/F-Light/intercept-to-singlenetpppoe/blob/master/mentohust-proxy_mtk)适用于任何版本锐捷。
