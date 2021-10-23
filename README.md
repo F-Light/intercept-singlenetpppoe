@@ -30,3 +30,4 @@
 ```
 mentohust-proxy_mtk --proxy-lan-iface br-lan --nic eth0.2 --eap-bcast-addr 0 --dhcp-type 2 -d 2 -l 2 -a 1 -b 3 -e 15
 ```
+此应用可以拦截任何版本的锐捷拨号，交由路由器处理，包括心跳。
